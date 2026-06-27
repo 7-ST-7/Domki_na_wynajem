@@ -69,7 +69,7 @@ a:hover {
 
 /* Hero Section */
 .hero {
-    background-image: url('/Users/7st7/cabin-rental-website/project/images/zdjecia_hero.jpg');
+    background-image: url('zdjecia_hero.jpg');
     background-size: cover;
     background-position: center;
     height: 100vh;
