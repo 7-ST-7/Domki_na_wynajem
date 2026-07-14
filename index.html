@@ -256,6 +256,13 @@
                     <div class="contact-form">
                         <h3>Wyślij wiadomość</h3>
                         <form id="contactForm">
+                            <form action="https://api.web3forms.com/submit" method="POST">
+                              <input type="hidden" name="access_key" value="93269808-09d2-48a3-bbc5-cb78add49d37">
+                              <input type="text" name="name" required>
+                              <input type="email" name="email" required>
+                              <textarea name="message" required></textarea>
+                              <button type="submit">Submit</button>
+                            </form>
                             <div class="form-group">
                                 <label for="name">Imię i nazwisko</label>
                                 <input type="text" id="name" name="name" required>
