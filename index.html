@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Domki w Sadzie - Wynajem</title>
     <meta name="description" content="Wynajem przytulnych domków w malowniczej okolicy. Zdjęcia, opis i kontakt.">
-        <link rel="stylesheet" href="styles.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
     <header>
@@ -29,15 +29,9 @@
                 <h2>O Naszych Domkach</h2>
                 <div class="about-content">
                     <div class="about-text">
-                        <p>Domki w Sadzie – wypoczynek w sercu natury</p>
-                        <p></p>
-                        <p>Zapraszamy do spokojnej, nadmorskiej miejscowości Wapnica – dzielnicy Międzyzdrojów, położonej na terenie Wolińskiego Parku Narodowego. To idealne miejsce dla miłośników pieszych i rowerowych wędrówek.</p>
-                        <p>W pobliżu znajduje się malownicze jezioro Turkusowe oraz Zalew Szczeciński z kameralną plażą.</p>
-                        <p>Do centrum Międzyzdrojów dzieli nas zaledwie 5 km – tam czekają na Państwa liczne atrakcje turystyczne, restauracje, promenada i szeroka, piaszczysta plaża.</p>
-                        <p></p>
                         <p>Nowe Domki położone są na ogrodzonym, oświetlonym i monitorowanym terenie sadu, co zapewnia bezpieczeństwo oraz komfort wypoczynku. To idealne miejsce na relaks, odpoczynek oraz kontakt z naturą.</p>
-                        Do dyspozycji gości oferujemy:
-                        Domki letniskowe (2 domki po 35 m²):</p>
+                        <p>Do dyspozycji gości oferujemy:</p>
+                        <p>Domki letniskowe (2 domki po 35 m²):</p>
                         <p>• Sypialnia z dwoma łóżkami</p>
                         <p>• Salon z rozkładaną sofą i aneksem kuchennym</p>
                         <p>• Łazienka</p>
@@ -49,11 +43,18 @@
                         <p>• Strefa relaksu: huśtawka do obserwacji zachodów słońca i hamak</p>
                         <p>• Miejsce na ognisko z ławkami</p>
                         <p>• Duży teren rekreacyjny do biegania i zabaw</p>
-                        <p>Dla podróżujących kamperem
-                        Na terenie sadu przygotowaliśmy bezpieczne miejsce postojowe z dostępem do prądu, wody i kanalizacji.</p>
+                        <p>Dla podróżujących kamperem</p>
+                        <p>Na terenie sadu przygotowaliśmy bezpieczne miejsce postojowe z dostępem do prądu, wody i kanalizacji.</p>
                     </div>
-                    <div class="about-image">
-                        <img src="Wnętrze.jpg" alt="Wnętrze jednego z naszych domków">
+                    <div class="about-video">
+                        <div class="video-wrapper">
+                            <video class="custom-video" controls poster="">
+                                <source src="/Users/7st7/cabin-rental-website/project/images/video.mp4" type="video/mp4">
+                            </video>
+                            <div class="video-control-hint">
+                                <i class="fa-solid fa-play"></i> Kliknij aby odtworzyć
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -64,30 +65,170 @@
                 <h2>Galerię Zdjęć</h2>
                 <div class="gallery-grid">
                     <div class="gallery-item">
-                        <img src="Domki z góry.jpg" alt="Domki z góry">
+                        <img src="/Users/7st7/cabin-rental-website/project/images/domki-z-gory.jpg" alt="Domki z góry">
                         <div class="gallery-overlay">
                             <h3>Widok na domki z góry</h3>
                             <p>Nasze domki od góry</p>
                         </div>
                     </div>
                     <div class="gallery-item">
-                        <img src="Domki z przodó.jpg" alt="Widok z przodó na domki">
+                        <img src="/Users/7st7/cabin-rental-website/project/images/domki-z-przodu.jpg" alt="Widok z przodó na domki">
                         <div class="gallery-overlay">
                             <h3>Widok na domki z przodó</h3>
                             <p>Ladny widok na domki z przodó</p>
                         </div>
                     </div>
                     <div class="gallery-item">
-                        <img src="miejsce na ognisko.jpg" alt="Wieczór przy ognisku">
+                        <img src="/Users/7st7/cabin-rental-website/project/images/miejsce-na-ognisko.jpg" alt="Wieczór przy ognisku">
                         <div class="gallery-overlay">
                             <h3>Wieczór przy Ognisku</h3>
                             <p>Wieczorne spotkania przy ognisku pod gwiazdami</p>
                         </div>
                     </div>
                     <div class="gallery-item">
-                        <img src="Jezioro.jpg" alt="Jezioro w okolicah domków">
+                        <img src="/Users/7st7/cabin-rental-website/project/images/jezioro.jpg" alt="Jezioro w okolicah domków">
                         <div class="gallery-overlay">
                             <h3>Widok na jezioro w okolice domków</h3>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="/Users/7st7/cabin-rental-website/project/images/basen.jpg" alt="Basen">
+                        <div class="gallery-overlay">
+                            <h3>Basen</h3>
+                            <p>Relaks w basenie w upalne dni</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="/Users/7st7/cabin-rental-website/project/images/jezioro-2.jpg" alt="Jezioro w okolicah domków">
+                        <div class="gallery-overlay">
+                            <h3>Widok na jezioro w okolice domków</h3>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="/Users/7st7/cabin-rental-website/project/images/domki-z-gory-2.jpg" alt="Domki z góry">
+                        <div class="gallery-overlay">
+                            <h3>Widok na domki z góry</h3>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="/Users/7st7/cabin-rental-website/project/images/domki-z-gory-3.jpg" alt="Domki z góry">
+                        <div class="gallery-overlay">
+                            <h3>Widok na domki z góry</h3>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="/Users/7st7/cabin-rental-website/project/images/ognisko.jpg" alt="Ognisko">
+                        <div class="gallery-overlay">
+                            <h3>Wieczór przy Ognisku</h3>
+                            <p>Wieczorne spotkania przy ognisku pod gwiazdami</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="/Users/7st7/cabin-rental-website/project/images/grill.jpg" alt="Grill">
+                        <div class="gallery-overlay">
+                            <h3>Chata grillowa</h3>
+                            <p>Wspólne biesiadowanie</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        </div>
+        </section>
+
+        <section id="gallery-interior" class="section">
+            <div class="container">
+                <h2>Domki w środku</h2>
+                <div class="gallery-grid">
+                    <div class="gallery-item">
+                        <img src="/Users/7st7/cabin-rental-website/project/images/pokoj-1.jpg" alt="Pokój">
+                        <div class="gallery-overlay">
+                            <h3>Pokój</h3>
+                            <p>Przyjemna przestrzeń do odpoczynku</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="/Users/7st7/cabin-rental-website/project/images/pokoj-2.jpg" alt="Pokój">
+                        <div class="gallery-overlay">
+                            <h3>Pokój</h3>
+                            <p>Przyjemna przestrzeń do odpoczynku</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="/Users/7st7/cabin-rental-website/project/images/pokoj-3.jpg" alt="Wieczór przy ognisku">
+                        <div class="gallery-overlay">
+                            <h3>Pokój</h3>
+                            <p>Przyjemna przestrzeń do odpoczynku</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="/Users/7st7/cabin-rental-website/project/images/kuchnia.jpg" alt="Kuchnia">
+                        <div class="gallery-overlay">
+                            <h3>Kuchnia</h3>
+                            <p>Przyjemna przestrzeń do gotowania</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="/Users/7st7/cabin-rental-website/project/images/lazienka-1.jpg" alt="Jezioro w okolicah domków">
+                        <div class="gallery-overlay">
+                            <h3>Lazieńka</h3>
+                            <p>Przyjemna przestrzeń do relaksu</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="/Users/7st7/cabin-rental-website/project/images/lazienka-2.jpg" alt="Jezioro w okolicah domków">
+                        <div class="gallery-overlay">
+                            <h3>Lazieńka</h3>
+                            <p>Przyjemna przestrzeń do relaksu</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="opinions" class="section">
+            <div class="container">
+                <h2>Opinie Gości</h2>
+                <div class="opinion-content">
+    <div id="adminPanel" class="hidden">
+        <h3>Panel administratora</h3>
+        <label for="adminPassword">Hasło admina:</label>
+        <input type="password" id="adminPassword" placeholder="Wprowadź hasło">
+        <button id="adminSubmit" class="btn">Zatwierdź</button>
+        <div id="adminStatus" class="form-status mt-3"></div>
+        <p style="font-size:0.85rem;color:#888;margin-top:0.5rem">Naciśnij Ctrl+Shift+A aby otworzyć/zamknąć panel</p>
+    </div>
+    <input type="checkbox" id="adminToggle" style="display:none">
+                    <div class="add-review-form">
+    <h3>Dodaj opinię</h3>
+    <form id="addReviewForm">
+        <div class="form-group">
+            <label for="reviewName">Imię</label>
+            <input type="text" id="reviewName" name="reviewName" required>
+        </div>
+        <div class="form-group">
+            <label for="reviewText">Opinia</label>
+            <textarea id="reviewText" name="reviewText" rows="3" required></textarea>
+        </div>
+        <button type="submit" class="btn">Dodaj opinię</button>
+    </form>
+    <div id="reviewStatus" class="form-status mt-3"></div>
+</div>
+                    <div class="reviews-slider">
+                        <div class="review-item">
+                            <p>"Super pobyt, piękne domki i miła obsługa!"</p>
+                            <p class="author">— Anna K.</p>
+                            <button class="btn-delete btn">Usuń</button>
+                        </div>
+                        <div class="review-item">
+                            <p>"Polecam wszystkim, którzy szukają spokoju i kontaktu z naturą."</p>
+                            <p class="author">— Janusz L.</p>
+                            <button class="btn-delete btn">Usuń</button>
+                        </div>
+                        <div class="review-item">
+                            <p>"Idealne miejsce na rodzinny wypoczynek. Wrócimy na pewno!"</p>
+                            <p class="author">— Marta Z.</p>
+                            <button class="btn-delete btn">Usuń</button>
                         </div>
                     </div>
                 </div>
@@ -104,14 +245,12 @@
                         <p><strong>Telefon:</strong> +48 453 120 272</p>
                         <p><strong>Email:</strong> arebek@wp.pl</p>
                         <div class="social-links">
-                            <div class="social-links">
-                                <a href="https://www.instagram.com/domki_w_sadzie?fbclid=IwY2xjawStFuBleHRuA2FlbQIxMABzcnRjBmFwcF9pZBAyMjIwMzkxNzg4MjAwODkyAAEe4qrFsPQS4N6BnQbpfrwHGKBuYoYPPOG-l3OF74tYbCAS5DniwZJvzqpz-FU_aem_mLErAXBiUC2bqcrOLYRYHA" target="_blank">
-                                    <i class="fa-brands fa-instagram"></i>
-                                </a>
-                                <a href="https://www.facebook.com/profile.php?id=61577277519600&locale=pl_PL" target="_blank">
-                                    <i class="fa-brands fa-facebook"></i>
-                                </a>
-                            </div>
+                            <a href="https://www.instagram.com/domki_w_sadzie?fbclid=IwY2xjawStFuBleHRuA2FlbQIxMABzcnRjBmFwcF9pZBAyMjIwMzkxNzg4MjAwODkyAAEe4qrFsPQS4N6BnQbpfrwHGKBuYoYPPOG-l3OF74tYbCAS5DniwZJvzqpz-FU_aem_mLErAXBiUC2bqcrOLYRYHA" target="_blank">
+                                <i class="fa-brands fa-instagram"></i>
+                            </a>
+                            <a href="https://www.facebook.com/profile.php?id=61577277519600&locale=pl_PL" target="_blank">
+                                <i class="fa-brands fa-facebook"></i>
+                            </a>
                         </div>
                     </div>
                     <div class="contact-form">
@@ -161,6 +300,7 @@
                         <a href="https://www.facebook.com/profile.php?id=61577277519600&locale=pl_PL" target="_blank">
                             <i class="fa-brands fa-facebook"></i>
                         </a>
+                    
                     </div>
                 </div>
             </div>
@@ -169,6 +309,7 @@
             </div>
         </div>
     </footer>
-    <script src="zscript.js"></script>
+    <script src="js/content.js"></script>
+    <script src="js/script.js"></script>
 </body>
 </html>
