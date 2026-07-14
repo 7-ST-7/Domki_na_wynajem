@@ -86,36 +86,11 @@ const submitBtn = form.querySelector('button[type="submit"]');
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    const formData = new FormData(form);
-    formData.append("access_key", "93269808-09d2-48a3-bbc5-cb78add49d37");
-
-    const originalText = submitBtn.textContent;
-
-    submitBtn.textContent = "Sending...";
-    submitBtn.disabled = true;
-
-    try {
-        const response = await fetch("https://api.web3forms.com/submit", {
-            method: "POST",
-            body: formData
-        });
-
-        const data = await response.json();
-
-        if (response.ok) {
-            alert("Success! Your message has been sent.");
-            form.reset();
-        } else {
-            alert("Error: " + data.message);
-        }
-
-    } catch (error) {
-        alert("Something went wrong. Please try again.");
-    } finally {
-        submitBtn.textContent = originalText;
-        submitBtn.disabled = false;
+    showStatus('Dziękujemy! Twoja wiadomość została wysłana.', 'success', status);
+    form.reset();
+    setTimeout(function () { status.style.display = 'none'; }, 5000);
     }
-});
+  }};
 
 function initReviewSystem() {
   const form = document.getElementById('addReviewForm');
