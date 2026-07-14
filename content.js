@@ -30,61 +30,61 @@ const SITE_CONTENT = {
     heading: 'Galerię Zdjęć',
     images: [
       {
-        src: '/Users/7st7/cabin-rental-website/project/images/domki-z-gory.jpg',
+        src: 'domki-z-gory.jpg',
         alt: 'Domki z góry',
         title: 'Widok na domki z góry',
         desc: 'Nasze domki od góry'
       },
       {
-        src: '/Users/7st7/cabin-rental-website/project/images/domki-z-przodu.jpg',
+        src: 'domki-z-przodu.jpg',
         alt: 'Widok z przodó na domki',
         title: 'Widok na domki z przodó',
         desc: 'Ladny widok na domki z przodó'
       },
       {
-        src: '/Users/7st7/cabin-rental-website/project/images/miejsce-na-ognisko.jpg',
+        src: 'miejsce-na-ognisko.jpg',
         alt: 'Wieczór przy ognisku',
         title: 'Wieczór przy Ognisku',
         desc: 'Wieczorne spotkania przy ognisku pod gwiazdami'
       },
       {
-        src: '/Users/7st7/cabin-rental-website/project/images/jezioro.jpg',
+        src: 'jezioro.jpg',
         alt: 'Jezioro w okolicah domków',
         title: 'Widok na jezioro w okolice domków',
         desc: ''
       },
       {
-        src: '/Users/7st7/cabin-rental-website/project/images/basen.jpg',
+        src: 'basen.jpg',
         alt: 'Basen',
         title: 'Basen',
         desc: 'Relaks w basenie w upalne dni'
       },
       {
-        src: '/Users/7st7/cabin-rental-website/project/images/jezioro-2.jpg',
+        src: 'jezioro-2.jpg',
         alt: 'Jezioro w okolicah domków',
         title: 'Widok na jezioro',
         desc: 'Jezioro w okolicy domków'
       },
       {
-        src: '/Users/7st7/cabin-rental-website/project/images/domki-z-gory-2.jpg',
+        src: 'domki-z-gory-2.jpg',
         alt: 'Domki z góry',
         title: 'Widok na domki z góry',
         desc: ''
       },
       {
-        src: '/Users/7st7/cabin-rental-website/project/images/domki-z-gory-3.jpg',
+        src: 'domki-z-gory-3.jpg',
         alt: 'Domki z góry',
         title: 'Widok na domki z góry',
         desc: ''
       },
       {
-        src: '/Users/7st7/cabin-rental-website/project/images/ognisko.jpg',
+        src: 'ognisko.jpg',
         alt: 'Ognisko',
         title: 'Wieczór przy Ognisku',
         desc: 'Wieczorne spotkania przy ognisku pod gwiazdami'
       },
       {
-        src: '/Users/7st7/cabin-rental-website/project/images/grill.jpg',
+        src: 'grill.jpg',
         alt: 'Grill',
         title: 'Chata grillowa',
         desc: 'Wspólne biesiadowanie'
@@ -95,37 +95,37 @@ const SITE_CONTENT = {
     heading: 'Domki w środku',
     images: [
       {
-        src: '/Users/7st7/cabin-rental-website/project/images/pokoj-1.jpg',
+        src: 'pokoj-1.jpg',
         alt: 'Pokój',
         title: 'Pokój',
         desc: 'Przyjemna przestrzeń do odpoczynku'
       },
       {
-        src: '/Users/7st7/cabin-rental-website/project/images/pokoj-2.jpg',
+        src: 'pokoj-2.jpg',
         alt: 'Pokój',
         title: 'Pokój',
         desc: 'Przyjemna przestrzeń do odpoczynku'
       },
       {
-        src: '/Users/7st7/cabin-rental-website/project/images/pokoj-3.jpg',
+        src: 'pokoj-3.jpg',
         alt: 'Pokój',
         title: 'Pokój',
         desc: 'Przyjemna przestrzeń do odpoczynku'
       },
       {
-        src: '/Users/7st7/cabin-rental-website/project/images/kuchnia.jpg',
+        src: 'kuchnia.jpg',
         alt: 'Kuchnia',
         title: 'Kuchnia',
         desc: 'Przyjemna przestrzeń do gotowania'
       },
       {
-        src: '/Users/7st7/cabin-rental-website/project/images/lazienka-1.jpg',
+        src: 'lazienka-1.jpg',
         alt: 'Łazienka',
         title: 'Łazienka',
         desc: 'Przyjemna przestrzeń do relaksu'
       },
       {
-        src: '/Users/7st7/cabin-rental-website/project/images/lazienka-2.jpg',
+        src: 'lazienka-2.jpg',
         alt: 'Łazienka',
         title: 'Łazienka',
         desc: 'Przyjemna przestrzeń do relaksu'
