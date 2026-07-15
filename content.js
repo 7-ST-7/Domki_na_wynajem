@@ -36,7 +36,8 @@ var SITE_CONTENT = {
       { src: 'pokoj-3.jpg', alt: 'Pokój', title: 'Pokój', desc: '' },
       { src: 'kuchnia.jpg', alt: 'Kuchnia', title: 'Kuchnia', desc: '' },
       { src: 'lazienka-1.jpg', alt: 'Łazienka', title: 'Łazienka', desc: '' },
-      { src: 'lazienka-2.jpg', alt: 'Łazienka', title: 'Łazienka', desc: '' }
+      { src: 'lazienka-2.jpg', alt: 'Łazienka', title: 'Łazienka', desc: '' },
+      { src: 'sypialnia.jpg', alt: 'Sypialnia', titel: 'Sypialnia', desc: '' }
     ]
   },
   contact: {
