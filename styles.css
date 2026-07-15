@@ -69,7 +69,7 @@ a:hover {
 
 /* Hero Section */
 .hero {
-    background-image: url('zdjecia-hero.jpg');
+    background-image: url('images/zdjecia-hero.jpg');
     background-size: cover;
     background-position: center;
     height: 100vh;
@@ -89,7 +89,7 @@ a:hover {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.4);
+    
 }
 
 .hero-content {
@@ -788,4 +788,120 @@ a:hover {
 
 .mt-3 {
   margin-top: 1rem;
+}
+
+#lightbox {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.9);
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+#lightbox.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+#lightbox-img {
+  max-width: 90%;
+  max-height: 85vh;
+  border-radius: 8px;
+  box-shadow: 0 4px 30px rgba(0,0,0,0.5);
+  object-fit: contain;
+}
+
+#lightbox-caption {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  font-size: 1rem;
+  background: rgba(0,0,0,0.6);
+  padding: 0.5rem 1.5rem;
+  border-radius: 20px;
+  max-width: 80%;
+  text-align: center;
+}
+
+#lightbox-close {
+  position: absolute;
+  top: 1.5rem;
+  right: 2rem;
+  color: white;
+  font-size: 3rem;
+  cursor: pointer;
+  line-height: 1;
+  transition: transform 0.2s;
+  z-index: 10;
+}
+
+#lightbox-close:hover {
+  transform: scale(1.2);
+}
+
+.gallery-item {
+  cursor: pointer;
+}
+
+.contact-map {
+  margin-top: 2rem;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+}
+
+.contact-map iframe {
+  display: block;
+  width: 100%;
+  height: 300px;
+  border: 0;
+}
+
+.map-link {
+  display: block;
+  text-align: center;
+  padding: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--primary);
+  background: #f0f7f0;
+  border-radius: 0 0 12px 12px;
+}
+
+.map-link:hover {
+  background: #dce8dc;
+  text-decoration: underline;
+}
+
+.btn-booking {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: #003580;
+  color: white;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  margin: 1.2rem 0;
+  transition: background 0.3s ease;
+}
+
+.btn-booking:hover {
+  background: #00224f;
+  text-decoration: none;
+  color: white;
+}
+
+.btn-booking i {
+  font-size: 1.3rem;
 }

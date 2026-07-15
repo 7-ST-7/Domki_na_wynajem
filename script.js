@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
     yearElement.textContent = new Date().getFullYear();
   }
 
+  loadSavedContent();
   renderContent();
   initContactForm();
   initReviewSystem();
@@ -54,11 +55,14 @@ function renderGalleryGrid(grid, images) {
   images.forEach(function (img) {
     var item = document.createElement('div');
     item.className = 'gallery-item';
-    item.innerHTML = '<img src="' + img.src + '" alt="' + img.alt + '">' +
+    item.innerHTML = '<img src="' + img.src + '" alt="' + img.alt + '" loading="lazy">' +
       '<div class="gallery-overlay">' +
       (img.title ? '<h3>' + img.title + '</h3>' : '') +
       (img.desc ? '<p>' + img.desc + '</p>' : '') +
       '</div>';
+    item.addEventListener('click', function () {
+      openLightbox(img.src, img.alt, img.title);
+    });
     grid.appendChild(item);
   });
 }
@@ -80,17 +84,32 @@ function initContactForm() {
       showStatus('Proszę podać poprawny adres email.', 'error', status);
       return;
     }
-   const form = document.getElementById('form');
-const submitBtn = form.querySelector('button[type="submit"]');
 
-form.addEventListener('submit', async (e) => {
-    e.preventDefault();
+    const formData = new FormData(form);
+    showStatus('Wysyłanie...', '', status);
+    status.className = 'form-status';
+    status.style.display = 'block';
 
-    showStatus('Dziękujemy! Twoja wiadomość została wysłana.', 'success', status);
-    form.reset();
-    setTimeout(function () { status.style.display = 'none'; }, 5000);
-    }
-  }};
+    fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      body: formData
+    })
+    .then(function (r) { return r.json(); })
+    .then(function (data) {
+      if (data.success) {
+        showStatus('Dziękujemy! Twoja wiadomość została wysłana.', 'success', status);
+        form.reset();
+      } else {
+        showStatus('Błąd: ' + data.message, 'error', status);
+      }
+    })
+    .catch(function () {
+      showStatus('Błąd połączenia. Spróbuj ponownie.', 'error', status);
+    });
+
+    setTimeout(function () { status.style.display = 'none'; }, 8000);
+  });
+}
 
 function initReviewSystem() {
   const form = document.getElementById('addReviewForm');
@@ -121,8 +140,11 @@ function initReviewSystem() {
       }
       const item = e.target.closest('.review-item');
       if (item) {
+        var reviews = JSON.parse(localStorage.getItem('REVIEWS') || '[]');
+        var idx = Array.from(item.parentNode.children).indexOf(item);
+        if (idx >= 0) reviews.splice(idx, 1);
+        localStorage.setItem('REVIEWS', JSON.stringify(reviews));
         item.remove();
-        saveReviewList(slider);
         showStatus('Opinia została usunięta.', 'success', status);
         setTimeout(function () { status.style.display = 'none'; }, 3000);
       }
@@ -131,59 +153,40 @@ function initReviewSystem() {
 }
 
 function loadReviews() {
-  const slider = document.querySelector('.reviews-slider');
+  var slider = document.querySelector('.reviews-slider');
   if (!slider) return;
   try {
-    const stored = localStorage.getItem('REVIEWS');
+    var stored = localStorage.getItem('REVIEWS');
     if (stored) {
-      const reviews = JSON.parse(stored);
+      var reviews = JSON.parse(stored);
       slider.innerHTML = '';
       reviews.forEach(function (r) {
-        const div = document.createElement('div');
+        var div = document.createElement('div');
         div.className = 'review-item';
         div.innerHTML = '<p>"' + r.text + '"</p><p class="author">— ' + r.name + '</p><button class="btn-delete btn">Usuń</button>';
         slider.appendChild(div);
       });
     }
-  } catch (e) { }
-  const adminToggle = document.getElementById('adminToggle');
-  if (adminToggle) {
-    const delBtns = slider.querySelectorAll('.btn-delete');
-    delBtns.forEach(function (btn) { btn.style.display = adminToggle.checked ? 'inline-block' : 'none'; });
-  } else {
-    const delBtns = slider.querySelectorAll('.btn-delete');
-    delBtns.forEach(function (btn) { btn.style.display = 'none'; });
-  }
+  } catch (e) {}
+  var adminToggle = document.getElementById('adminToggle');
+  var delBtns = slider.querySelectorAll('.btn-delete');
+  delBtns.forEach(function (btn) { btn.style.display = adminToggle && adminToggle.checked ? 'inline-block' : 'none'; });
 }
 
 function addReview(name, text, slider, statusEl) {
-  const div = document.createElement('div');
+  var reviews = JSON.parse(localStorage.getItem('REVIEWS') || '[]');
+  reviews.push({ name: name, text: text });
+  localStorage.setItem('REVIEWS', JSON.stringify(reviews));
+  var div = document.createElement('div');
   div.className = 'review-item';
   div.innerHTML = '<p>"' + text + '"</p><p class="author">— ' + name + '</p><button class="btn-delete btn">Usuń</button>';
-  const adminToggle = document.getElementById('adminToggle');
+  var adminToggle = document.getElementById('adminToggle');
   if (!adminToggle || !adminToggle.checked) {
     div.querySelector('.btn-delete').style.display = 'none';
   }
   slider.appendChild(div);
-  saveReviewList(slider);
   showStatus('Dziękujemy za opinię!', 'success', statusEl);
   setTimeout(function () { statusEl.style.display = 'none'; }, 3000);
-}
-
-function saveReviewList(slider) {
-  const items = slider.querySelectorAll('.review-item');
-  const reviews = [];
-  items.forEach(function (item) {
-    const p = item.querySelector('p');
-    const author = item.querySelector('.author');
-    if (p && author) {
-      reviews.push({
-        text: p.textContent.replace(/^"|"$/g, ''),
-        name: author.textContent.replace('— ', '')
-      });
-    }
-  });
-  localStorage.setItem('REVIEWS', JSON.stringify(reviews));
 }
 
 function initAdminPanel() {
@@ -210,7 +213,7 @@ function initAdminPanel() {
 
   if (adminSubmit) {
     adminSubmit.addEventListener('click', function () {
-      const pw = adminPassword.value.trim();
+      var pw = adminPassword.value.trim();
       if (pw === getContent().admin.password) {
         adminToggle.checked = true;
         adminToggle.dispatchEvent(new Event('change'));
@@ -466,6 +469,34 @@ function initVideoPlayer() {
   video.addEventListener('ended', function () {
     wrapper.classList.remove('played');
   });
+}
+
+function openLightbox(src, alt, title) {
+  var overlay = document.getElementById('lightbox');
+  if (!overlay) {
+    overlay = document.createElement('div');
+    overlay.id = 'lightbox';
+    overlay.innerHTML = '<span id="lightbox-close">&times;</span>' +
+      '<img id="lightbox-img" src="" alt="">' +
+      '<div id="lightbox-caption"></div>';
+    document.body.appendChild(overlay);
+    overlay.addEventListener('click', function (e) {
+      if (e.target === overlay || e.target.id === 'lightbox-close') {
+        overlay.classList.remove('active');
+      }
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') {
+        var lb = document.getElementById('lightbox');
+        if (lb) lb.classList.remove('active');
+      }
+    });
+  }
+  document.getElementById('lightbox-img').src = src;
+  document.getElementById('lightbox-img').alt = alt;
+  var caption = document.getElementById('lightbox-caption');
+  caption.textContent = title || alt || '';
+  overlay.classList.add('active');
 }
 
 function showStatus(message, type, element) {
