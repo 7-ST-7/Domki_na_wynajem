@@ -339,7 +339,11 @@ function renderGalleryTab(c, key, label) {
     '<div id="gallery-items-editor' + suffix + '">';
   data.images.forEach(function (img, i) {
     html += '<div class="gallery-edit-item" data-index="' + i + '">' +
-      '<div class="form-group"><label>Ścieżka zdjęcia ' + (i + 1) + '</label><input type="text" class="edit-' + key + '-src" value="' + escHtml(img.src) + '"></div>' +
+      '<div class="form-group"><label>Ścieżka zdjęcia ' + (i + 1) + '</label>' +
+      '<div style="display:flex;gap:0.5rem;align-items:center">' +
+      '<input type="text" class="edit-' + key + '-src" value="' + escHtml(img.src) + '" style="flex:1">' +
+      '<button class="btn btn-sm btn-upload" data-gallery="' + key + '" data-index="' + i + '" style="white-space:nowrap;padding:0.5rem 0.8rem;font-size:0.8rem;background:#666">Wybierz plik</button>' +
+      '</div></div>' +
       '<div class="form-group"><label>Alt tekst</label><input type="text" class="edit-' + key + '-alt" value="' + escHtml(img.alt) + '"></div>' +
       '<div class="form-group"><label>Tytuł (nad zdjęciem)</label><input type="text" class="edit-' + key + '-title" value="' + escHtml(img.title || '') + '"></div>' +
       '<div class="form-group"><label>Opis</label><input type="text" class="edit-' + key + '-desc" value="' + escHtml(img.desc || '') + '"></div>' +
@@ -372,8 +376,11 @@ function renderFooterTab(c) {
 }
 
 function renderSettingsTab(c) {
+  var imgbbKey = localStorage.getItem('IMGBB_KEY') || '';
   return '<div id="tab-settings" class="editor-tab">' +
     '<div class="form-group"><label>Hasło admina</label><input type="text" id="edit-admin-password" value="' + escHtml(c.admin.password) + '"></div>' +
+    '<div class="form-group"><label>Klucz API imgbb (https://api.imgbb.com)</label><input type="text" id="edit-imgbb-key" value="' + escHtml(imgbbKey) + '" placeholder="np. 1234567890abcdef1234567890abcdef"></div>' +
+    '<p style="font-size:0.85rem;color:#888">Potrzebny do wgrywania zdjęć z panelu admina.</p>' +
     '</div>';
 }
 
@@ -431,6 +438,9 @@ function saveEditorContent() {
       });
     }
   });
+
+  var imgbbKey = getVal('edit-imgbb-key');
+  if (imgbbKey) localStorage.setItem('IMGBB_KEY', imgbbKey);
 
   saveContent(c);
   renderContent();
@@ -507,6 +517,58 @@ function showStatus(message, type, element) {
   }
 }
 
+fileInput = null;
+
+function createFileInput() {
+  var inp = document.createElement('input');
+  inp.type = 'file';
+  inp.accept = 'image/*';
+  inp.style.display = 'none';
+  document.body.appendChild(inp);
+  inp.addEventListener('change', function () {
+    var file = inp.files[0];
+    var gallery = inp.getAttribute('data-gallery');
+    var index = inp.getAttribute('data-index');
+    if (!file || !gallery) return;
+
+    var key = localStorage.getItem('IMGBB_KEY');
+    if (!key) {
+      alert('Najpierw dodaj klucz API imgbb w zakładce Ustawienia');
+      return;
+    }
+
+    var status = document.getElementById('adminEditorStatus');
+    showStatus('Wgrywanie zdjęcia...', '', status);
+
+    var formData = new FormData();
+    formData.append('key', key);
+    formData.append('image', file);
+
+    fetch('https://api.imgbb.com/1/upload', {
+      method: 'POST',
+      body: formData
+    })
+    .then(function (r) { return r.json(); })
+    .then(function (data) {
+      if (data.success) {
+        var url = data.data.url;
+        var inputs = document.querySelectorAll('.edit-' + gallery + '-src');
+        if (inputs[index]) inputs[index].value = url;
+        showStatus('Zdjęcie wgrane! URL wklejony.', 'success', status);
+      } else {
+        showStatus('Błąd: ' + (data.error || 'nieznany'), 'error', status);
+      }
+    })
+    .catch(function () {
+      showStatus('Błąd wysyłania. Sprawdź klucz API.', 'error', status);
+    });
+
+    setTimeout(function () { status.style.display = 'none'; }, 5000);
+    inp.value = '';
+  });
+  return inp;
+}
+
 document.addEventListener('click', function (e) {
   var target = e.target;
 
@@ -519,7 +581,11 @@ document.addEventListener('click', function (e) {
     var div = document.createElement('div');
     div.className = 'gallery-edit-item';
     div.innerHTML =
-      '<div class="form-group"><label>Ścieżka zdjęcia ' + (count + 1) + '</label><input type="text" class="edit-' + key + '-src" value=""></div>' +
+      '<div class="form-group"><label>Ścieżka zdjęcia ' + (count + 1) + '</label>' +
+      '<div style="display:flex;gap:0.5rem;align-items:center">' +
+      '<input type="text" class="edit-' + key + '-src" value="" style="flex:1">' +
+      '<button class="btn btn-sm btn-upload" data-gallery="' + key + '" data-index="' + count + '" style="white-space:nowrap;padding:0.5rem 0.8rem;font-size:0.8rem;background:#666">Wybierz plik</button>' +
+      '</div></div>' +
       '<div class="form-group"><label>Alt tekst</label><input type="text" class="edit-' + key + '-alt" value=""></div>' +
       '<div class="form-group"><label>Tytuł</label><input type="text" class="edit-' + key + '-title" value=""></div>' +
       '<div class="form-group"><label>Opis</label><input type="text" class="edit-' + key + '-desc" value=""></div>' +
@@ -532,5 +598,12 @@ document.addEventListener('click', function (e) {
       var item = target.closest('.gallery-edit-item');
       if (item) item.remove();
     }
+  }
+
+  if (target && target.classList.contains('btn-upload')) {
+    if (!fileInput) fileInput = createFileInput();
+    fileInput.setAttribute('data-gallery', target.getAttribute('data-gallery'));
+    fileInput.setAttribute('data-index', target.getAttribute('data-index'));
+    fileInput.click();
   }
 });

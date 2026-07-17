@@ -69,7 +69,7 @@ a:hover {
 
 /* Hero Section */
 .hero {
-    background-image: url('zdjecia-hero.jpg');
+    background-image: url('images/zdjecia-hero.jpg');
     background-size: cover;
     background-position: center;
     height: 100vh;
@@ -739,6 +739,10 @@ a:hover {
   font-size: 0.8rem;
   padding: 0.4rem 0.8rem;
   margin-top: 0.25rem;
+}
+
+.btn-upload:hover {
+  background: #555 !important;
 }
 
 #adminEditorStatus {
