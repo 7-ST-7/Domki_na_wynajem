@@ -75,18 +75,6 @@ var SITE_CONTENT = {
         "alt": "Grill",
         "title": "Chata grillowa",
         "desc": ""
-      },
-      {
-        "src": "https://i.ibb.co/Xfk3Q30B/kwiaty.jpg",
-        "alt": "",
-        "title": "kwiaty",
-        "desc": ""
-      },
-      {
-        "src": "https://i.ibb.co/b55sWCXq/kwiaty.jpg",
-        "alt": "",
-        "title": "kwiaty",
-        "desc": ""
       }
     ]
   },
