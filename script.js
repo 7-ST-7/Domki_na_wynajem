@@ -335,7 +335,7 @@ function publishToGitHub() {
     'function resetContent() {\n  savedContent = null;\n  localStorage.removeItem(\'SITE_CONTENT\');\n}\n\n' +
     'function loadSavedContent() {\n  try {\n    var stored = localStorage.getItem(\'SITE_CONTENT\');\n    if (stored) savedContent = JSON.parse(stored);\n  } catch (e) {}\n}\n';
 
-  var path = 'project/js/content.js';
+  var path = 'content.js';
   var url = 'https://api.github.com/repos/' + repo + '/contents/' + path;
 
   alert('Pobieranie aktualnej wersji pliku z GitHub...');
@@ -346,7 +346,7 @@ function publishToGitHub() {
   .then(function (r) { return r.json(); })
   .then(function (existing) {
     if (existing.message === 'Not Found') {
-      alert('Błąd: nie znaleziono pliku. Sprawdź nazwę repozytorium (format: "uzytkownik/nazwa-repo") i czy plik project/js/content.js istnieje.');
+      alert('Błąd: nie znaleziono pliku. Sprawdź nazwę repozytorium (format: "uzytkownik/nazwa-repo") i czy plik content.js istnieje.');
       return;
     }
     var sha = existing.sha;
