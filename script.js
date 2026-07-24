@@ -310,6 +310,7 @@ function initAdminEditor() {
       location.reload();
     }
   });
+
   var publishBtn = document.getElementById('publish-btn');
   if (publishBtn) {
     publishBtn.addEventListener('click', function (e) {

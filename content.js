@@ -16,28 +16,27 @@ var SITE_CONTENT = {
   gallery: {
     heading: 'Galerię Zdjęć',
     images: [
-      { src: 'domki-z-gory.jpg', alt: 'Domki z góry', title: 'Widok na domki z góry', desc: '' },
-      { src: 'domki-z-przodu.jpg', alt: 'Widok z przodu', title: 'Widok na domki z przodu', desc: '' },
-      { src: 'miejsce-na-ognisko.jpg', alt: 'Ognisko', title: 'Wieczór przy Ognisku', desc: '' },
-      { src: 'jezioro.jpg', alt: 'Jezioro', title: 'Widok na jezioro', desc: '' },
-      { src: 'basen.jpg', alt: 'Basen', title: 'Basen', desc: 'Relaks w basenie' },
-      { src: 'jezioro-2.jpg', alt: 'Jezioro', title: 'Widok na jezioro', desc: '' },
-      { src: 'domki-z-gory-2.jpg', alt: 'Domki z góry', title: 'Widok na domki', desc: '' },
-      { src: 'domki-z-gory-3.jpg', alt: 'Domki z góry', title: 'Widok na domki', desc: '' },
-      { src: 'ognisko.jpg', alt: 'Ognisko', title: 'Wieczór przy Ognisku', desc: '' },
-      { src: 'grill.jpg', alt: 'Grill', title: 'Chata grillowa', desc: '' }
+      { src: 'images/domki-z-gory.jpg', alt: 'Domki z góry', title: 'Widok na domki z góry', desc: '' },
+      { src: 'images/domki-z-przodu.jpg', alt: 'Widok z przodu', title: 'Widok na domki z przodu', desc: '' },
+      { src: 'images/miejsce-na-ognisko.jpg', alt: 'Ognisko', title: 'Wieczór przy Ognisku', desc: '' },
+      { src: 'images/jezioro.jpg', alt: 'Jezioro', title: 'Widok na jezioro', desc: '' },
+      { src: 'images/basen.jpg', alt: 'Basen', title: 'Basen', desc: 'Relaks w basenie' },
+      { src: 'images/jezioro-2.jpg', alt: 'Jezioro', title: 'Widok na jezioro', desc: '' },
+      { src: 'images/domki-z-gory-2.jpg', alt: 'Domki z góry', title: 'Widok na domki', desc: '' },
+      { src: 'images/domki-z-gory-3.jpg', alt: 'Domki z góry', title: 'Widok na domki', desc: '' },
+      { src: 'images/ognisko.jpg', alt: 'Ognisko', title: 'Wieczór przy Ognisku', desc: '' },
+      { src: 'images/grill.jpg', alt: 'Grill', title: 'Chata grillowa', desc: '' }
     ]
   },
   gallery2: {
     heading: 'Domki w środku',
     images: [
-      { src: 'pokoj-1.jpg', alt: 'Pokój', title: 'Pokój', desc: '' },
-      { src: 'pokoj-2.jpg', alt: 'Pokój', title: 'Pokój', desc: '' },
-      { src: 'pokoj-3.jpg', alt: 'Pokój', title: 'Pokój', desc: '' },
-      { src: 'kuchnia.jpg', alt: 'Kuchnia', title: 'Kuchnia', desc: '' },
-      { src: 'lazienka-1.jpg', alt: 'Łazienka', title: 'Łazienka', desc: '' },
-      { src: 'lazienka-2.jpg', alt: 'Łazienka', title: 'Łazienka', desc: '' },
-      { src: 'sypialnia.jpg', alt: 'Sypialnia', titel: 'Sypialnia', desc: '' }
+      { src: 'images/pokoj-1.jpg', alt: 'Pokój', title: 'Pokój', desc: '' },
+      { src: 'images/pokoj-2.jpg', alt: 'Pokój', title: 'Pokój', desc: '' },
+      { src: 'images/pokoj-3.jpg', alt: 'Pokój', title: 'Pokój', desc: '' },
+      { src: 'images/kuchnia.jpg', alt: 'Kuchnia', title: 'Kuchnia', desc: '' },
+      { src: 'images/lazienka-1.jpg', alt: 'Łazienka', title: 'Łazienka', desc: '' },
+      { src: 'images/lazienka-2.jpg', alt: 'Łazienka', title: 'Łazienka', desc: '' }
     ]
   },
   contact: {
