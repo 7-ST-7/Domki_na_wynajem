@@ -312,6 +312,73 @@ function initAdminEditor() {
   });
 }
 
+function publishToGitHub() {
+  var token = localStorage.getItem('GH_TOKEN');
+  var repo = localStorage.getItem('GH_REPO');
+  var status = document.getElementById('publish-status');
+  if (!token || !repo) {
+    showStatus('Wpisz token GitHub i nazwę repozytorium w zakładce Ustawienia.', 'error', status);
+    return;
+  }
+
+  var c = loadContent();
+  var contentStr = 'var savedContent = null;\n\n' +
+    'var SITE_CONTENT = ' + JSON.stringify(c, null, 2) + ';\n\n' +
+    'function getContent() {\n  return savedContent || SITE_CONTENT;\n}\n\n' +
+    'function saveContent(newContent) {\n  savedContent = newContent;\n  localStorage.setItem(\'SITE_CONTENT\', JSON.stringify(newContent));\n}\n\n' +
+    'function resetContent() {\n  savedContent = null;\n  localStorage.removeItem(\'SITE_CONTENT\');\n}\n\n' +
+    'function loadSavedContent() {\n  try {\n    var stored = localStorage.getItem(\'SITE_CONTENT\');\n    if (stored) savedContent = JSON.parse(stored);\n  } catch (e) {}\n}\n';
+
+  var path = 'project/js/content.js';
+  var url = 'https://api.github.com/repos/' + repo + '/contents/' + path;
+
+  showStatus('Pobieranie aktualnej wersji z GitHuba...', '', status);
+
+  fetch(url, {
+    headers: { 'Authorization': 'Bearer ' + token, 'Accept': 'application/vnd.github.v3+json' }
+  })
+  .then(function (r) { return r.json(); })
+  .then(function (existing) {
+    var sha = existing.sha;
+    var currentContent = existing.content ? atob(existing.content.replace(/\n/g, '')) : '';
+
+    if (currentContent === contentStr) {
+      showStatus('Brak zmian do opublikowania.', 'success', status);
+      return;
+    }
+
+    var encoded = btoa(unescape(encodeURIComponent(contentStr)));
+
+    showStatus('Publikowanie zmian na GitHub...', '', status);
+
+    return fetch(url, {
+      method: 'PUT',
+      headers: { 'Authorization': 'Bearer ' + token, 'Accept': 'application/vnd.github.v3+json', 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        message: 'Aktualizacja treści strony z panelu admina',
+        content: encoded,
+        sha: sha
+      })
+    });
+  })
+  .then(function (r) {
+    if (!r) return;
+    return r.json();
+  })
+  .then(function (data) {
+    if (data && data.content) {
+      showStatus('Opublikowano! GitHub uruchamia ponowne budowanie strony. Zmiany będą widoczne za 1-2 minuty.', 'success', status);
+    } else if (data && data.message) {
+      showStatus('Błąd GitHub: ' + data.message, 'error', status);
+    }
+  })
+  .catch(function (err) {
+    showStatus('Błąd: ' + err.message, 'error', status);
+  });
+
+  setTimeout(function () { if (status) status.style.display = 'none'; }, 8000);
+}
+
 function renderHeroTab(c) {
   return '<div id="tab-hero" class="editor-tab active">' +
     '<div class="form-group"><label>Tytuł</label><input type="text" id="edit-hero-title" value="' + escHtml(c.hero.title) + '"></div>' +
@@ -377,10 +444,20 @@ function renderFooterTab(c) {
 
 function renderSettingsTab(c) {
   var imgbbKey = localStorage.getItem('IMGBB_KEY') || '';
+  var ghToken = localStorage.getItem('GH_TOKEN') || '';
+  var ghRepo = localStorage.getItem('GH_REPO') || '';
   return '<div id="tab-settings" class="editor-tab">' +
     '<div class="form-group"><label>Hasło admina</label><input type="text" id="edit-admin-password" value="' + escHtml(c.admin.password) + '"></div>' +
-    '<div class="form-group"><label>Klucz API imgbb (https://api.imgbb.com)</label><input type="text" id="edit-imgbb-key" value="' + escHtml(imgbbKey) + '" placeholder="np. 1234567890abcdef1234567890abcdef"></div>' +
-    '<p style="font-size:0.85rem;color:#888">Potrzebny do wgrywania zdjęć z panelu admina.</p>' +
+    '<hr style="margin:1rem 0">' +
+    '<h3 style="margin-top:0">Publikowanie na GitHub</h3>' +
+    '<p style="font-size:0.85rem;color:#666;margin-bottom:0.8rem">Po zapisaniu zmian kliknij przycisk "Opublikuj" – zapisze wszystko w repozytorium i strona zaktualizuje się dla wszystkich.</p>' +
+    '<div class="form-group"><label>Token GitHub (Settings → Developer settings → Personal access tokens → repo)</label><input type="text" id="edit-gh-token" value="' + escHtml(ghToken) + '" placeholder="ghp_..."></div>' +
+    '<div class="form-group"><label>Repozytorium (np. username/nazwa-repo)</label><input type="text" id="edit-gh-repo" value="' + escHtml(ghRepo) + '" placeholder="moje-konto/cabin-rental"></div>' +
+    '<button id="publish-btn" class="btn" style="background:#003580;margin-top:0.5rem">&#8593; Opublikuj zmiany na GitHub</button>' +
+    '<div id="publish-status" class="form-status mt-3" style="display:none"></div>' +
+    '<hr style="margin:1rem 0">' +
+    '<div class="form-group"><label>Klucz API imgbb (https://api.imgbb.com)</label><input type="text" id="edit-imgbb-key" value="' + escHtml(imgbbKey) + '" placeholder="np. 1234567890..."></div>' +
+    '<p style="font-size:0.85rem;color:#888">Do wgrywania zdjęć z panelu admina.</p>' +
     '</div>';
 }
 
@@ -441,6 +518,10 @@ function saveEditorContent() {
 
   var imgbbKey = getVal('edit-imgbb-key');
   if (imgbbKey) localStorage.setItem('IMGBB_KEY', imgbbKey);
+  var ghToken = getVal('edit-gh-token');
+  if (ghToken) localStorage.setItem('GH_TOKEN', ghToken);
+  var ghRepo = getVal('edit-gh-repo');
+  if (ghRepo) localStorage.setItem('GH_REPO', ghRepo);
 
   saveContent(c);
   renderContent();
@@ -605,5 +686,9 @@ document.addEventListener('click', function (e) {
     fileInput.setAttribute('data-gallery', target.getAttribute('data-gallery'));
     fileInput.setAttribute('data-index', target.getAttribute('data-index'));
     fileInput.click();
+  }
+
+  if (target && target.id === 'publish-btn') {
+    publishToGitHub();
   }
 });
