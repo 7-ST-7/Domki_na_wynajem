@@ -315,9 +315,8 @@ function initAdminEditor() {
 function publishToGitHub() {
   var token = localStorage.getItem('GH_TOKEN');
   var repo = localStorage.getItem('GH_REPO');
-  var status = document.getElementById('publish-status');
   if (!token || !repo) {
-    showStatus('Wpisz token GitHub i nazwę repozytorium w zakładce Ustawienia.', 'error', status);
+    alert('Najpierw wpisz token GitHub i nazwę repozytorium w zakładce Ustawienia, kliknij Zapisz, potem spróbuj ponownie.');
     return;
   }
 
@@ -332,24 +331,22 @@ function publishToGitHub() {
   var path = 'project/js/content.js';
   var url = 'https://api.github.com/repos/' + repo + '/contents/' + path;
 
-  showStatus('Pobieranie aktualnej wersji z GitHuba...', '', status);
+  alert('Pobieranie aktualnej wersji pliku z GitHub...');
 
   fetch(url, {
     headers: { 'Authorization': 'Bearer ' + token, 'Accept': 'application/vnd.github.v3+json' }
   })
   .then(function (r) { return r.json(); })
   .then(function (existing) {
-    var sha = existing.sha;
-    var currentContent = existing.content ? atob(existing.content.replace(/\n/g, '')) : '';
-
-    if (currentContent === contentStr) {
-      showStatus('Brak zmian do opublikowania.', 'success', status);
+    if (existing.message === 'Not Found') {
+      alert('Błąd: nie znaleziono pliku. Sprawdź nazwę repozytorium (format: "uzytkownik/nazwa-repo") i czy plik project/js/content.js istnieje.');
       return;
     }
+    var sha = existing.sha;
 
     var encoded = btoa(unescape(encodeURIComponent(contentStr)));
 
-    showStatus('Publikowanie zmian na GitHub...', '', status);
+    alert('Publikowanie zmian...');
 
     return fetch(url, {
       method: 'PUT',
@@ -367,16 +364,14 @@ function publishToGitHub() {
   })
   .then(function (data) {
     if (data && data.content) {
-      showStatus('Opublikowano! GitHub uruchamia ponowne budowanie strony. Zmiany będą widoczne za 1-2 minuty.', 'success', status);
+      alert('Opublikowano! GitHub buduje stronę. Zmiany widoczne za 1-2 minuty. Odśwież stronę w przeglądarce po chwili.');
     } else if (data && data.message) {
-      showStatus('Błąd GitHub: ' + data.message, 'error', status);
+      alert('Błąd GitHub API: ' + data.message);
     }
   })
   .catch(function (err) {
-    showStatus('Błąd: ' + err.message, 'error', status);
+    alert('Błąd sieciowy: ' + err.message + '\n\nSprawdź konsolę (F12) po więcej szczegółów.');
   });
-
-  setTimeout(function () { if (status) status.style.display = 'none'; }, 8000);
 }
 
 function renderHeroTab(c) {
