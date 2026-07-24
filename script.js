@@ -310,6 +310,13 @@ function initAdminEditor() {
       location.reload();
     }
   });
+  var publishBtn = document.getElementById('publish-btn');
+  if (publishBtn) {
+    publishBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      publishToGitHub();
+    });
+  }
 }
 
 function publishToGitHub() {
@@ -320,7 +327,7 @@ function publishToGitHub() {
     return;
   }
 
-  var c = loadContent();
+  var c = getContent();
   var contentStr = 'var savedContent = null;\n\n' +
     'var SITE_CONTENT = ' + JSON.stringify(c, null, 2) + ';\n\n' +
     'function getContent() {\n  return savedContent || SITE_CONTENT;\n}\n\n' +
